@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-bg-azul-claro to-bg-azul-gradiente text-texto-principal antialiased;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* Inputs - Estilo Money Legal */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  select,
+  textarea {
+    @apply w-full px-4 py-3 text-base border-2 border-gray-200 rounded-xl
+           focus:border-primary focus:ring-4 focus:ring-primary/10
+           transition-all duration-200 outline-none
+           placeholder:text-texto-claro;
+  }
+
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    @apply bg-gray-100 cursor-not-allowed opacity-60;
+  }
+
+  label {
+    @apply text-sm font-medium text-texto-principal mb-2 block;
+  }
+}
+
+@layer components {
+  /* Botão Principal - Estilo Money Legal */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           font-semibold rounded-xl transition-all duration-300
+           focus:outline-none focus:ring-4 disabled:opacity-50
+           disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-600
+           shadow-button hover:shadow-button-hover
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-texto-principal border-2 border-gray-200
+           hover:bg-gray-50 shadow-sm;
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-lg;
+  }
+
+  /* Cards - Estilo Money Legal */
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-gray-100
+           transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  .card-saldo {
+    @apply bg-gradient-to-br from-primary to-ciano
+           rounded-xl p-6 text-white;
+  }
+
+  .card-despesas {
+    @apply bg-white rounded-xl p-6 border-2 border-laranja/20;
+  }
+
+  .card-conta {
+    @apply bg-white rounded-xl p-5 flex items-center justify-between
+           border border-gray-100 transition-all duration-200
+           hover:bg-gray-50 hover:border-primary/20;
+  }
+
+  /* Ícones - Estilo Money Legal */
+  .icone-conta {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center text-2xl;
+  }
+
+  .icone-azul {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .icone-roxo {
+    @apply bg-roxo/10 text-roxo;
+  }
+
+  .icone-laranja {
+    @apply bg-laranja/10 text-laranja;
+  }
+
+  /* Auth Container - Estilo Money Legal */
+  .auth-container {
+    @apply min-h-screen bg-gradient-to-br from-bg-azul-claro to-bg-azul-gradiente
+           flex items-center justify-center p-4;
+  }
+
+  .auth-card {
+    @apply bg-white rounded-2xl shadow-card border border-gray-100
+           w-full max-w-md p-8 space-y-6 animate-slide-up;
+  }
+
+  /* Logo - Estilo Money Legal */
+/* Logo - Estilo Money Legal */
+.logo {
+  @apply flex flex-col items-center justify-center gap-2 text-2xl font-bold;
+}
+
+.logo-icon-interna {
+  @apply w-16 h-16 
+         rounded-xl flex items-center justify-center;
+}
+
+.logo-icon {
+  @apply w-36 h-36 
+         rounded-xl flex items-center justify-center;
+}
+
+.logo-icon img {
+  @apply w-full h-full object-contain;
+}
+
+.logo-text {
+  @apply text-texto-principal text-center;
+}
+
+  .logo-text-destaque {
+    @apply text-ciano;
+  }
+
+  /* Form Groups */
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-error {
+    @apply text-sm text-danger-500 mt-1;
+  }
+
+  /* Dashboard - Estilo Money Legal */
+  .dashboard-greeting {
+    @apply text-2xl font-semibold text-texto-principal mb-2;
+  }
+
+  .dashboard-greeting-name {
+    @apply text-primary;
+  }
+
+  .dashboard-time {
+    @apply text-base text-texto-secundario font-normal;
+  }
+
+  /* Saldo - Estilo Money Legal */
+  .saldo-label {
+    @apply text-sm text-white/80 mb-1;
+  }
+
+  .saldo-valor {
+    @apply text-3xl font-bold text-white mb-2;
+  }
+
+  .saldo-variacao {
+    @apply text-sm text-white/90 flex items-center gap-1;
+  }
+
+  /* Despesas */
+  .despesas-label {
+    @apply text-sm text-texto-secundario mb-1;
+  }
+
+  .despesas-valor {
+    @apply text-3xl font-bold text-laranja;
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    @apply w-14 h-14 rounded-2xl flex items-center justify-center
+           bg-primary/10 text-primary text-2xl;
+  }
+}
+
+@layer utilities {
+  /* Text Gradients */
+  .text-gradient-azul {
+    @apply bg-gradient-to-r from-primary to-ciano bg-clip-text text-transparent;
+  }
+
+  /* Animations */
+  .animate-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  .animate-slide-in {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+}
+
+/* Scrollbar Personalizada - Estilo Money Legal */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full hover:bg-primary/50;
+}
+
+/* Animações Globais */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading Spinner - Estilo Money Legal */
+.spinner {
+  border: 3px solid rgba(0, 128, 255, 0.1);
+  border-top-color: #0080FF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
