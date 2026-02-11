@@ -6,7 +6,7 @@ import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/Button";
 import { authService } from "@/services/authService";
 import logo from "@/assets/logo.png";
-import { toastError } from "@/lib/toast";
+import { toastError } from "@/lib/toast/toast";
 import { HeaderCardsAuth } from "@/components/ui/HeaderCardsAuth";
 import { useShake } from "@/hooks/useShake";
 
@@ -208,7 +208,7 @@ export const OtpPage: React.FC = () => {
       }
 
       navigate(successTo, {
-        state: { email, otp, forceLogout: true },
+        state: { email, otp, logout: true },
         replace: true,
       });
 } catch (err: any) {
@@ -249,6 +249,8 @@ export const OtpPage: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary-blue-10)] via-white to-[var(--color-secondary-blue-10)]" />
             <HeaderCardsAuth
               variant="centered"
+              title="Money Legal"
+              subTitle=""
               shake={useShake(!email || otpInvalid)}
             >
       
@@ -256,7 +258,7 @@ export const OtpPage: React.FC = () => {
           Digite o código de {OTP_LENGTH} dígitos enviado para seu e-mail.
         </p>
 
-        <motion.div {...fadeSlide} className="mt-6 space-y-4">
+        <motion.div {...fadeSlide} className="mt-6 space-y-2">
           {/* OTP segmentado */}
           <div className="flex items-center justify-center gap-1">
             {Array.from({ length: OTP_LENGTH }).map((_, i) => {

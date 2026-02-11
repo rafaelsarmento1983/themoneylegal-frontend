@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { HeaderCardsAuth } from "@/components/ui/HeaderCardsAuth";
 import { useShake } from "@/hooks/useShake";
 
-import { Mail, ArrowRight, ArrowLeft, Loader2, Rocket } from "lucide-react";
+import { Mail, ArrowRight, ArrowLeft, Loader2, Rocket, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -93,6 +93,8 @@ export const RecoveryPasswordPage: React.FC = () => {
 
       <HeaderCardsAuth
         variant="centered"
+        title="Money Legal"
+        subTitle=""
         shake={useShake(emailNotFound || emailErrored)}
       >
 
@@ -101,12 +103,13 @@ export const RecoveryPasswordPage: React.FC = () => {
         </p>
 
         {error && (
-          <div className="mt-6 rounded-xl border border-danger-200 bg-danger-50 p-3 text-sm text-danger-700">
-            {error}
+          <div className="mb-6 p-4 bg-red-50 border-0 border-red-200 rounded-lg text-[15px] font-medium text-red-700 flex items-center justify-center gap-2">
+            <XCircle className="w-4 h-4 flex-shrink-0" />
+            <span>{error}</span>
           </div>
         )}
 
-        <motion.div {...fadeSlide} className="mt-6 space-y-4">
+        <motion.div {...fadeSlide} className="mt-6 space-y-2">
           <Input
             type="email"
             placeholder="Seu e-mail"

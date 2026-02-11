@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { cn } from '../../../lib/utils';
+import { cn } from '../../../lib/utils/utils';
 import logoMain from '../../../assets/logo.png';
 import { X, Search } from 'lucide-react';
 import { GROUP_ORDER, type MenuItem } from './menu';

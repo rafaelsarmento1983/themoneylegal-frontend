@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes, ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../lib/utils';
+import { cn } from '../../lib/utils/utils';
 import {
   AlertCircle,
   CheckCircle,
@@ -167,7 +167,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const effectiveVariant = (error ? 'error' : success ? 'success' : variant) as any;
     const effectiveRounded = customRounded ? undefined : rounded;
 
-    const needsInlineStyles = props.type === 'email' || props.type === 'password' || props.type === 'tel' || props.type === 'text';
+    const needsInlineStyles = props.type === 'email' || props.type === 'password' || props.type === 'tel' || props.type === 'text' || props.type === 'date';
     const inlineStyles: React.CSSProperties = {};
 
     if (needsInlineStyles && customRounded) {

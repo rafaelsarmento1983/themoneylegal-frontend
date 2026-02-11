@@ -74,7 +74,7 @@ const WorkspaceWelcome: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[var(--color-primary-blue-100)] mx-auto mb-4" />
           <p className="text-gray-600">Carregando...</p>
         </div>
       </div>
@@ -187,7 +187,7 @@ const WorkspaceWelcome: React.FC = () => {
             {/* Formulário de criação */}
             <form onSubmit={handleCreateWorkspace} className="space-y-6">
               <div className="bg-gray-50 rounded-xl p-6 border-2 border-dashed border-gray-300">
-                <div className="space-y-4">
+                <div className="space-y-2">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Nome do Workspace *

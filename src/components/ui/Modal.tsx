@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { cn } from '../../lib/utils';
+import { cn } from '../../lib/utils/utils';
 import { Button } from './Button';
 import { X, XCircle, Trash2 } from "lucide-react";
 

@@ -19,13 +19,16 @@ import { Input } from "@/components/ui/Input";
 import { useAuthStore } from "@/store/authStore";
 import { authService } from "@/services/authService";
 import logo from "@/assets/logo.png";
-import { toastError } from "@/lib/toast";
 import { useShake } from "@/hooks/useShake";
 import { useLocation } from "react-router-dom";
+import { toastError, toastDismiss, toastSuccess } from "@/lib/toast/toast";
 
 // ✅ Hook reutilizável
 import { useEmailCheck } from "@/hooks/useEmailCheck";
 import { HeaderCardsAuth } from "@/components/ui/HeaderCardsAuth";
+
+// ✅ Flag da sessão expirada (localStorage)
+import { sessionExpiredFlag } from "@/lib/toast/toastFlags";
 
 type LoginStep = "email" | "password";
 
@@ -83,6 +86,21 @@ export const LoginPage: React.FC = () => {
     password: "",
     rememberMe: false,
   });
+
+  // ✅ Ao montar: se veio de sessão expirada, mostra toast infinito e limpa flag
+  useEffect(() => {
+    const msg = sessionExpiredFlag.get();
+    if (!msg) return;
+
+    toastError({
+      id: "session-expired",
+      title: "Ooops!",
+      description: msg,
+      duration: Infinity,
+    });
+
+    sessionExpiredFlag.clear();
+  }, []);
 
   // Redirect se já autenticado
   useEffect(() => {
@@ -169,9 +187,18 @@ export const LoginPage: React.FC = () => {
       });
 
       setAuth(response.user, response.defaultTenant, response.accessToken, response.refreshToken);
+
+      toastDismiss("session-expired");
+
+      toastSuccess({
+        id: "welcome-back",
+        title: "Woohoo! 🎉",
+        description: `Seja bem-vindo de volta! Bom te ver novamente!`,
+        duration: 10_000,
+      });
+
       navigate("/dashboard", { replace: true });
     } catch (err: any) {
-
       const message =
         err?.response?.data?.message ||
         "Não foi possível entrar. Verifique seus dados e tente novamente.";
@@ -223,8 +250,10 @@ export const LoginPage: React.FC = () => {
 
             <HeaderCardsAuth
               variant="centered"
-              shake={useShake(emailNotFound || emailErrored || loginError)}>
-
+              title="Money Legal"
+              subTitle=""
+              shake={useShake(emailNotFound || emailErrored || loginError)}
+            >
               <p className="mt-2 text-center text-[15px] font-medium text-neutral-500">
                 Digite o e-mail cadastrado para localizar sua conta.
               </p>
@@ -238,7 +267,7 @@ export const LoginPage: React.FC = () => {
               <form onSubmit={handleSubmit} className="mt-6">
                 <AnimatePresence mode="wait">
                   {loginStep === "email" && (
-                    <motion.div key="emailStep" {...fadeSlide} className="space-y-4">
+                    <motion.div key="emailStep" {...fadeSlide} className="space-y-2">
                       <Input
                         type="email"
                         placeholder="Seu e-mail"
@@ -270,7 +299,7 @@ export const LoginPage: React.FC = () => {
                               variant="outline"
                               tone="filledLight"
                               className="w-full md:!w-auto md:!px-8 md:min-w-[220px]"
-                              rightIcon={<Rocket />}
+                              rightIcon={<Rocket className="w-4 h-4" />}
                               onClick={() => navigate("/register")}
                             >
                               Criar Conta
@@ -308,7 +337,7 @@ export const LoginPage: React.FC = () => {
                   )}
 
                   {loginStep === "password" && (
-                    <motion.div key="passStep" {...fadeSlide} className="space-y-4">
+                    <motion.div key="passStep" {...fadeSlide} className="space-y-2">
                       <Input
                         type={showPassword ? "text" : "password"}
                         placeholder="Senha"
@@ -339,6 +368,30 @@ export const LoginPage: React.FC = () => {
                           </div>
                         }
                       />
+
+                      {loginError && (
+                        <div className="rounded-2xl border border-neutral-200/70 bg-neutral-50 p-4">
+                          <div className="text-sm font-semibold text-neutral-900">
+                            Não foi possível entrar.
+                          </div>
+                          <div className="text-sm font-medium text-neutral-600 mt-1">
+                            Você pode recuperar sua senha, caso tenha esquecido.
+                          </div>
+                          <div className="mt-3 flex justify-center">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              tone="filledLight"
+                              className="w-full md:!w-auto md:!px-8 md:min-w-[220px]"
+                              rightIcon={<Lock className="w-4 h-4" />}
+                              onClick={() => navigate("/forgot-password")}
+                            >
+                              Recuperar Senha
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+
 
                       <div className="pt-2 space-y-3 md:flex md:flex-col md:items-center">
                         <Button
@@ -385,9 +438,9 @@ export const LoginPage: React.FC = () => {
               </form>
             </HeaderCardsAuth>
           </div>
-        </motion.div >
-      </AnimatePresence >
-    </div >
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
 

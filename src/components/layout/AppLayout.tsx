@@ -4,7 +4,7 @@ import { Sidebar } from './menu/Sidebar';
 import { Header } from './menu/Header';
 import { BottomNav } from './menu/BottomNav';
 import { MobileMenuGrid } from './menu/MobileMenuGrid';
-import { cn } from '../../lib/utils';
+import { cn } from '../../lib/utils/utils';
 import { FabButton } from "./menu/FabButton";
 import { MENU_ITEMS } from './menu/menu';
 

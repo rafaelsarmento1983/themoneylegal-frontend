@@ -11,8 +11,7 @@ import {
   ArrowLeft,
   Loader2,
   CheckCircle,
-  XCircle,
-  LogIn,
+  LogIn, XCircle
 } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
@@ -213,6 +212,8 @@ export const RegisterPage: React.FC = () => {
       <HeaderCardsAuth
         variant="centered"
         onBack={handleBack}
+        title="Money Legal"
+        subTitle=""
         shake={useShake(emailExists)}
       >
         <p className="mt-2 text-center text-[15px] font-medium text-neutral-500">
@@ -228,15 +229,16 @@ export const RegisterPage: React.FC = () => {
         </div>
 
         {error && (
-          <div className="mt-6 rounded-xl border border-danger-200 bg-danger-50 p-3 text-sm text-danger-700">
-            {error}
+          <div className="mb-6 p-4 bg-red-50 border-0 border-red-200 rounded-lg text-[15px] font-medium text-red-700 flex items-center justify-center gap-2">
+            <XCircle className="w-4 h-4 flex-shrink-0" />
+            <span>{error}</span>
           </div>
         )}
 
         <div className="mt-6">
           <AnimatePresence mode="wait">
             {step === "name" && (
-              <motion.div {...fadeSlide} className="space-y-4">
+              <motion.div {...fadeSlide} className="space-y-2">
                 <Input
                   type="text"
                   placeholder="Nome completo"
@@ -258,7 +260,7 @@ export const RegisterPage: React.FC = () => {
             )}
 
             {step === "email" && (
-              <motion.div {...fadeSlide} className="space-y-4">
+              <motion.div {...fadeSlide} className="space-y-2">
                 <Input
                   type="email"
                   placeholder="Seu e-mail"
@@ -306,7 +308,7 @@ export const RegisterPage: React.FC = () => {
             )}
 
             {step === "password" && (
-              <motion.div {...fadeSlide} className="space-y-4">
+              <motion.div {...fadeSlide} className="space-y-2">
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="Senha"

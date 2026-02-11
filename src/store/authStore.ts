@@ -8,7 +8,7 @@ interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   isAuthenticated: boolean;
-  
+
   setAuth: (user: User, tenant: Tenant, accessToken: string, refreshToken: string) => void;
   clearAuth: () => void;
   updateUser: (user: Partial<User>) => void;
@@ -20,14 +20,16 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       tenant: null,
-      accessToken: null,
-      refreshToken: null,
-      isAuthenticated: false,
+
+      // ✅ Deriva do storage para evitar "reviver" sessão sem token após reload
+      accessToken: localStorage.getItem('accessToken'),
+      refreshToken: localStorage.getItem('refreshToken'),
+      isAuthenticated: !!localStorage.getItem('accessToken'),
 
       setAuth: (user, tenant, accessToken, refreshToken) => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        
+
         set({
           user,
           tenant,
@@ -40,7 +42,7 @@ export const useAuthStore = create<AuthState>()(
       clearAuth: () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        
+
         set({
           user: null,
           tenant: null,
@@ -55,15 +57,15 @@ export const useAuthStore = create<AuthState>()(
           user: state.user ? { ...state.user, ...updatedFields } : null,
         })),
 
-      switchTenant: (tenant) =>
-        set({ tenant }),
+      switchTenant: (tenant) => set({ tenant }),
     }),
     {
       name: 'money-legal-auth',
+
+      // ✅ NÃO persistir isAuthenticated (evita estado "true" sem token)
       partialize: (state) => ({
         user: state.user,
         tenant: state.tenant,
-        isAuthenticated: state.isAuthenticated,
       }),
     }
   )

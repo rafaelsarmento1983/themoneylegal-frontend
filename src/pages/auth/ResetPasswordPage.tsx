@@ -20,7 +20,7 @@ import { useAuthStore } from "@/store/authStore";
 import logo from "@/assets/logo.png";
 import { HeaderCardsAuth } from "@/components/ui/HeaderCardsAuth";
 import { useShake } from "@/hooks/useShake";
-import { toastSuccess } from "@/lib/toast";
+import { toastSuccess } from "@/lib/toast/toast";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -37,7 +37,7 @@ const fadeSlide = {
 interface LocationState {
   email?: string;
   otp?: string;
-  forceLogout?: boolean;
+  logout?: boolean;
 }
 
 export const ResetPasswordPage: React.FC = () => {
@@ -47,7 +47,7 @@ export const ResetPasswordPage: React.FC = () => {
 
   const [shake, setShake] = useState(false);
 
-  const { email, otp, forceLogout } = (location.state || {}) as LocationState;
+  const { email, otp, logout } = (location.state || {}) as LocationState;
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -107,7 +107,7 @@ export const ResetPasswordPage: React.FC = () => {
        * 🔐 Força logout global no front
        * (mesmo que o backend já tenha invalidado tokens)
        */
-      if (forceLogout) {
+      if (logout) {
         clearAuth();
       }
 
@@ -140,6 +140,8 @@ export const ResetPasswordPage: React.FC = () => {
 
       <HeaderCardsAuth
         variant="centered"
+        title="Money Legal"
+        subTitle=""
         shake={useShake(error)}
       >
 
@@ -147,7 +149,7 @@ export const ResetPasswordPage: React.FC = () => {
           Defina uma nova senha de acesso à sua conta.
         </p>
 
-        <motion.div {...fadeSlide} className="mt-6 space-y-4">
+        <motion.div {...fadeSlide} className="mt-6 space-y-2">
           {/* Nova senha */}
           <Input
             type={showPassword ? "text" : "password"}

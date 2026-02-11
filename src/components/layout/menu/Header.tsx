@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { cn } from '../../../lib/utils';
+import { cn } from '../../../lib/utils/utils';
 import { Button } from '../ui/Button';
 import { useAuthStore } from '../../../store/authStore';
 import { TenantSwitcher } from '../../tenant/TenantSwitcher';
@@ -13,7 +13,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { Input } from '../../components/ui/Input';
-
+import { logout } from "@/lib/auth/logout";
 
 /**
  * 📱 Header Component - VERSÃO FUNCIONAL
@@ -44,13 +44,6 @@ export const Header: React.FC<HeaderProps> = ({
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch?.(searchQuery);
-  };
-
-  const handleLogout = () => {
-    // Limpar autenticação
-    clearAuth();
-    // Navegar para login
-    navigate('/login');
   };
 
   return (
@@ -180,7 +173,10 @@ export const Header: React.FC<HeaderProps> = ({
                   </button>
                   <div className="my-1 border-t border-neutral-200" />
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                        logout("manual");
+                        setShowProfileMenu(false);
+                      }}
                     className="w-full px-4 py-2 text-left text-sm text-danger-600 hover:bg-danger-50 flex items-center gap-2"
                   >
                     <LogOut className="w-4 h-4" />

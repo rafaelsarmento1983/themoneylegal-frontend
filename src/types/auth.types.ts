@@ -1,11 +1,13 @@
+// frontend/src/types/auth.types.ts
+
 export interface User {
   id: string;
-  name: string;
   email: string;
-  phone?: string;
-  avatarUrl?: string;
+  name: string;
   emailVerified: boolean;
-  phoneVerified: boolean;
+  profileCompleted?: boolean; // ← ADICIONAR ESTE CAMPO
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Tenant {
@@ -13,17 +15,9 @@ export interface Tenant {
   name: string;
   slug: string;
   type: 'PERSONAL' | 'FAMILY' | 'BUSINESS';
-  plan: 'FREE' | 'PREMIUM' | 'ENTERPRISE';
-  role: 'VIEWER' | 'MEMBER' | 'MANAGER' | 'ADMIN' | 'OWNER';
-}
-
-export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
-  tokenType: string;
-  expiresIn: number;
-  user: User;
-  defaultTenant: Tenant;
+  ownerId: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface LoginRequest {
@@ -34,10 +28,12 @@ export interface LoginRequest {
 export interface RegisterRequest {
   name: string;
   email: string;
-  phone?: string;
   password: string;
 }
 
-export interface RefreshTokenRequest {
+export interface AuthResponse {
+  user: User;
+  tenant: Tenant;
+  accessToken: string;
   refreshToken: string;
 }

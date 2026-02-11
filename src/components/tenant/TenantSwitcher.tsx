@@ -6,7 +6,7 @@ import { useTenants } from '../../hooks/queries';
 import { useQuery } from '@tanstack/react-query';
 import { tenantService } from '../../services/tenantService';
 import { Input } from '../../components/ui/Input';
-import { truncateMiddle } from '../../lib/utils/';
+import { truncateMiddle } from '../../lib/utils/utils';
 
 export function TenantSwitcher() {
   const navigate = useNavigate();

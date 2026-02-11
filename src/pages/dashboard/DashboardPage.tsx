@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { cn, formatCurrency } from '../../lib/utils';
+import { cn, formatCurrency } from '../../lib/utils/utils';
 import { useAuthStore } from '../../store/authStore';
 import {
   TrendingUp,
